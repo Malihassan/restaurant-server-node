@@ -1,0 +1,39 @@
+<html lang="en">
+
+  <head>
+    <title> Welcome </title>
+    <style>
+      * {
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+      }
+      .welcome{ 
+          height: 200px; width: 100%;
+          background-color: rgba(20, 20, 20, 0.972);
+          font-family: 'Space Mono', monospace;
+          font-size: 1.5rem;
+          color: rgb(133, 133, 133);
+          padding-top: 1%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          }
+      .welcome a {
+        margin: 10px;
+        color: #ffb326;
+      }    
+    </style>
+
+  </head>
+
+  <body>
+    <div class="welcome">
+      <label>{{message}}</label>
+      {{#if link}}
+      <a href={{link}}> go to login</a>
+      {{/if}}
+    </div>
+  </body>
+
+</html>
