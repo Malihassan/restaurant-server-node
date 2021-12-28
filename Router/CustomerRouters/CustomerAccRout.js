@@ -148,12 +148,8 @@ router.post("/newPassword", async (req, res) => {
   let newpass = req.body;
   let documentId =newpass.i
   let confirmCode =newpass.c
-  console.log('documentId',documentId);
-  console.log("Code Confirmation",confirmCode);
 
   const emailExist = await UsersAccount.getAccountByID(documentId);
-  console.log("email Exist",emailExist);
-  console.log("email Exist lenth arr",emailExist.length);
 
   if (
     Object.keys(emailExist).length === 0 ||
