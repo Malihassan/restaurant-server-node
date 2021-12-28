@@ -26,7 +26,7 @@ module.exports.sendConfirmationEmail = (
       html: `<h1>Email Confirmation</h1>
         <h2>Hello ${name}</h2>
         <p>Thank you for subscribing. Please confirm your email by clicked on bottom link</p>
-        <a href=http://localhost:7000/ElhendawyRestaurant/activateAccount/${_id}/${confirmationCode}>verify your email</a>
+        <a href=${process.env.PROJECT_URL}ElhendawyRestaurant/activateAccount/${_id}/${confirmationCode}>verify your email</a>
         </div>`,
     },
     (error, info) => {
@@ -51,7 +51,7 @@ module.exports.sendResetPassword = (_id, userEmail, name, confirmationCode) => {
       html: `<h1>Email Confirmation</h1>
         <h2>Hello ${name}</h2>
         <p>Thank you for subscribing.</p>
-        <a href=http://localhost:7000/ElhendawyRestaurant/resetPassword/?i=${_id}&c=${confirmationCode}>Reset Your Password</a>
+        <a href=${process.env.PROJECT_URL}ElhendawyRestaurant/resetPassword/?i=${_id}&c=${confirmationCode}>Reset Your Password</a>
         </div>`,
     },
     (error, info) => {

@@ -55,7 +55,7 @@ router.get("/activateAccount/:_id/:confirmationCode", async (req, res) => {
   if (emailExist.Status !== "Pending") {
     return res.render("welcome", {
       message: "Account alredy activated",
-      link: "http://localhost:3000/account/login",
+      link: `${process.env.PROJECT_URL}account/login`,
     });
   }
   if (emailExist.ConfirmationCode !== confirmationCode) {
@@ -66,26 +66,25 @@ router.get("/activateAccount/:_id/:confirmationCode", async (req, res) => {
   await UsersAccount.updateAccount(emailExist._id, emailExist);
   return res.render("welcome", {
     message: "Thank You For Confirmation Account ",
-    link: "http://localhost:3000/account/login",
+    link: `${process.env.PROJECT_URL}account/login`,
   });
 });
 router.post("/login", async (req, res) => {
-  let { Email, Password } = req.body;
-  const emailExist = await UsersAccount.getAccountByEmail(Email);
-  if (emailExist.length === 0) {
-    return res.status(404).send({ response: " Email Not Exist " });
-  }
-  if (emailExist[0].Status === "Pending") {
-    return res.status(401).send({ response: " this account not active " });
-  }
-
-  const validPassword = await bcrypt.compare(Password, emailExist[0].Password);
-
-  if (!validPassword) {
-    return res.status(400).send({ response: " Incorrect Password " });
-  }
-
   try {
+    let { Email, Password } = req.body;
+    const emailExist = await UsersAccount.getAccountByEmail(Email);
+    if (emailExist.length === 0) {
+      return res.status(404).send({ response: " Email Not Exist " });
+    }
+    if (emailExist[0].Status === "Pending") {
+      return res.status(401).send({ response: " this account not active " });
+    }
+  
+    const validPassword = await bcrypt.compare(Password, emailExist[0].Password);
+  
+    if (!validPassword) {
+      return res.status(400).send({ response: " Incorrect Password " });
+    }
     const payload = {
       Email: Email,
       Name: emailExist[0].Name,
