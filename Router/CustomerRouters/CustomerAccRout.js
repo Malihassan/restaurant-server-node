@@ -146,12 +146,18 @@ router.get("/resetPassword", async (req, res) => {
 });
 router.post("/newPassword", async (req, res) => {
   let newpass = req.body;
+  let documentId =newpass.i
+  let confirmCode =newpass.c
+  console.log('documentId',documentId);
+  console.log("Code Confirmation",confirmCode);
 
-  const emailExist = await UsersAccount.getAccountByID(newpass.i);
+  const emailExist = await UsersAccount.getAccountByID(documentId);
+  console.log("email Exist",emailExist);
+  console.log("email Exist lenth arr",emailExist.length);
 
   if (
     Object.keys(emailExist).length === 0 ||
-    emailExist.ConfirmationCode !== newpass.c
+    emailExist.ConfirmationCode !== confirmCode
   ) {
     return res.status(404).send({ response: " Server Error " });
   }
