@@ -189,7 +189,10 @@ const getAllSubCategoryProduct = async (category, subCategory) => {
     { SubCategory: { $elemMatch: { Type: subCategory } } }
   ).lean();
 
-  return response.SubCategory[0].Items;
+  return {
+    items: response.SubCategory[0].Items,
+    description: response.SubCategory[0].CategoryDescription,
+  };
 };
 
 const getAllCategoryProduct = async () => {
