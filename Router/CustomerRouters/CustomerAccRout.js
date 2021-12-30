@@ -55,7 +55,7 @@ router.get("/activateAccount/:_id/:confirmationCode", async (req, res) => {
   if (emailExist.Status !== "Pending") {
     return res.render("welcome", {
       message: "Account alredy activated",
-      link: `${process.env.PROJECT_URL}account/login`,
+      link: `${process.env.PROJECT_FRONT_URL}account/login`,
     });
   }
   if (emailExist.ConfirmationCode !== confirmationCode) {
@@ -66,7 +66,7 @@ router.get("/activateAccount/:_id/:confirmationCode", async (req, res) => {
   await UsersAccount.updateAccount(emailExist._id, emailExist);
   return res.render("welcome", {
     message: "Thank You For Confirmation Account ",
-    link: `${process.env.PROJECT_URL}account/login`,
+    link: `${process.env.PROJECT_FRONT_URL}account/login`,
   });
 });
 router.post("/login", async (req, res) => {
