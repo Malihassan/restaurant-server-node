@@ -17,6 +17,9 @@ const ProductSchema = new mongo.Schema(
           trim: true,
         },
         CategoryDescription: String, // food ===> pizza
+        SubCategoryUrls: {
+          Cloudinary: { type: String, default: "" },
+        },
         Items: [
           {
             Item_id: mongo.ObjectId, //(123464sgdjhgd)
@@ -122,7 +125,7 @@ const validateSubCategoryHierarchy = async (req, res, next) => {
       ],
     }).lean();
     if (result !== null) {
-      res.status(400).send(" SubCategory is already Exist ");
+      return res.status(400).send(" SubCategory is already Exist ");
     }
   } catch (error) {
     res.status(400).send(error.message);
